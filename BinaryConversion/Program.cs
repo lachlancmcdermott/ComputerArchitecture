@@ -61,26 +61,23 @@ namespace BinaryConversion
             return (byte)(number & 0b_1111_1111);
         }
 
-
         static void DoWork(int instruction, short[] register)
         {
             byte OpCode = GetNthByte(instruction, 3);
-            byte b1 = GetNthByte(instruction, 2);
-            byte b2 = GetNthByte(instruction, 1);
+            int b1 = GetNthByte(instruction, 2);
+            int b2 = GetNthByte(instruction, 1);
             byte b3 = GetNthByte(instruction, 0);
-            if (OpCode == 64) //SET 0x40
+            if (OpCode == 64) //SET - 0x40_Register#_FF_Value to store in register
             {
-                //0x40_10-
-                //you have a register value (index) and a value that you are setting into the register
-                register[0] = b3;
+                register[b1] = b3;
             }
-            else if(OpCode == 16) //ADD 0x10
+            else if(OpCode == 16) //ADD - 0x10_Register to add, register to add, first register (aka. sum)
             {
-                register[0] = register[]
+                register[b1] = register[b1] + register[b2];
             }
-            else if(OpCode == 66) //JMP 0x42
+            else if(OpCode == 66) //JMP - 0x42 
             {
-
+                //????
             }
         }
 
@@ -88,7 +85,19 @@ namespace BinaryConversion
         static void Main(string[] args)
         {
             short[] register = new short[5];
-            DoWork(0x40001000, register);
+            PrintRegister(register);
+            Console.WriteLine();
+            DoWork(0x4001FF01, register);
+            PrintRegister(register);
         }
+        
+        static void PrintRegister(short[] register)
+        {
+            for (int i = 0; i < register.Length; i++)
+            {
+                Console.WriteLine(register[i]);
+            }
+        }
+
     }
 }
