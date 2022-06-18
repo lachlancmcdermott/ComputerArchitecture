@@ -20,7 +20,14 @@ namespace BinaryConversion
         public static int[] instructions = new int[6];
 
         public static int loop = 5;
-
+        static void PrintRegister()
+        {
+            for (int i = 0; i < register.Length; i++)
+            {
+                Console.WriteLine(register[i]);
+            }
+            Console.WriteLine();
+        }
         static bool IsPowerOfTwo(int number)
         {
             if (number >> 1 == 1)
@@ -93,10 +100,11 @@ namespace BinaryConversion
             }
             else if (OpCode == 0x31) //JMPT
             {
-                if (b1 < b3)
+                if (b1 <= b3)
                 {
                     //JMP
-                    register[IP] = b2;
+                    
+                    register[IP] = 31;
                 }
                 else
                 {
@@ -106,40 +114,24 @@ namespace BinaryConversion
             }
         }
 
-        /// Set R0 0; count = 0
-        /// Set R1 1; inc = 1
-        /// Set R25; limit = 5
-        /// LOOP:
-        /// LT R3 R0 R2; count to limit
-        /// JMPZ end R3
-        /// ADD R0 R1 R0; count++;
-        /// JMP loop end;
-
-        static void Main(string[] args)
+        static void Main()
         {
-            instructions[0] = 0x4000FF01;
-            instructions[1] = 0x4001FF01;
-            instructions[2] = 0x4002FF05;
-            instructions[3] = 0x10000100;
-            //JMP
-            //instructions[4] = 0x4202FFFF;
+            instructions[0] = 0x4000FF01; //SET
+            instructions[1] = 0x4001FF01; //SET
+            instructions[2] = 0x4002FF05; //SET
+
+            instructions[3] = 0x10000100; //ADD
+            //instructions[4] = 0x4202FFFF; //JMP
+
             //JMPT
-            instructions[4] = 0x31000203;
-
-
-            DoWork();
-            PrintRegister();
-        }
-
-        static void PrintRegister()
-        {
-            for (int i = 0; i < register.Length; i++)
+            while (true)
             {
-                Console.WriteLine(register[i]);
+                DoWork();
+                instructions[5] = 0x31000203; //JMPT
+                PrintRegister();
             }
-            Console.WriteLine();
-        }
 
+        }
 
 
 
