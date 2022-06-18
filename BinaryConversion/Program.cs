@@ -2,6 +2,17 @@
 
 namespace BinaryConversion
 {
+    class LinkedListNode
+    {
+        public int Value { get; set; }
+        public LinkedListNode Next { get; set; }
+
+        public LinkedListNode(int value, LinkedListNode next = null)
+        {
+            Value = value;
+            Next = next;
+        }
+    }
     class Program
     {
         enum OpCodes : byte
@@ -74,7 +85,6 @@ namespace BinaryConversion
             number = number >> (i * 8);
             return (byte)(number & 0b_1111_1111);
         }
-
         static void DoWork()
         {
             int cI = register[IP];
@@ -100,37 +110,107 @@ namespace BinaryConversion
             }
             else if (OpCode == 0x31) //JMPT
             {
-                if (b1 <= b3)
+                if (register[b1] <= register[b3])
                 {
                     //JMP
-                    
+
                     register[IP] = 31;
                 }
                 else
                 {
-                    //cont
                     register[IP]++;
                 }
             }
         }
+        static unsafe void LoopThrough(int[] array, int start, int end)
+        {
+            fixed (int* ptr = array)
+            {
+                int* temp = (int*)ptr;
+                while (start < end)
+                {
+                    Console.WriteLine(ptr[start]);
+                    start++;
+                }
+            }
+        }
+
+        static unsafe void BubbleSort(int[] array, int start, int end)
+        {
+            fixed (int* ptr = array)
+            {
+                int* temp = (int*)ptr;
+                while (start < end)
+                {
+                    for (int i = 0; i < array.Length; i++)
+                    {
+                        if (*(ptr + i) > *(ptr))
+                        {
+
+                        }
+                    }
+                    start++;
+                }
+            }
+        }
+
+        static int SubtractionWithAddition(int a, int b)
+        {
+            int num = ~b;
+            num++;
+            num = a + num;
+
+            return num;
+        }
+
+        public static void Print(LinkedListNode node)
+        {
+            while (node != null)
+            {
+                Console.WriteLine($"{node.Value}");
+                if (node.Next != null)
+                {
+                    Console.Write("->");
+                }
+                node = node.Next;
+            }
+            Console.WriteLine();
+        }
+
+        public static LinkedListNode Add(LinkedListNode head1, LinkedListNode head2)
+        {
+            LinkedListNode combined = new LinkedListNode(0, null);
+
+
+
+            return combined;
+        }
+
 
         static void Main()
         {
-            instructions[0] = 0x4000FF01; //SET
-            instructions[1] = 0x4001FF01; //SET
-            instructions[2] = 0x4002FF05; //SET
+            LinkedListNode head1 = new LinkedListNode(1, );
+            LinkedListNode head2 = new LinkedListNode();
 
-            instructions[3] = 0x10000100; //ADD
-            //instructions[4] = 0x4202FFFF; //JMP
+            Print(head1);
+            Print(head2);
+            Print(Add(head1, head2));
 
-            //JMPT
-            while (true)
-            {
-                DoWork();
-                instructions[5] = 0x31000203; //JMPT
-                PrintRegister();
-            }
 
+            //instructions[0] = 0x4000FF01; //SET
+            //instructions[1] = 0x4001FF01; //SET
+            //instructions[2] = 0x4002FF05; //SET
+
+            //instructions[3] = 0x10000100; //ADD
+            ////instructions[4] = 0x4202FFFF; //JMP
+
+            ////JMPT
+            //while (true)
+            //{
+            //    DoWork();
+            //    instructions[5] = 0x31000203; //JMPT
+            //    PrintRegister();
+            //}
         }
 
 
