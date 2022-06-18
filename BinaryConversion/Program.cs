@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections.Generic;
 
 namespace BinaryConversion
 {
@@ -122,37 +123,37 @@ namespace BinaryConversion
                 }
             }
         }
-        static unsafe void LoopThrough(int[] array, int start, int end)
-        {
-            fixed (int* ptr = array)
-            {
-                int* temp = (int*)ptr;
-                while (start < end)
-                {
-                    Console.WriteLine(ptr[start]);
-                    start++;
-                }
-            }
-        }
+        //static unsafe void LoopThrough(int[] array, int start, int end)
+        //{
+        //    fixed (int* ptr = array)
+        //    {
+        //        int* temp = (int*)ptr;
+        //        while (start < end)
+        //        {
+        //            Console.WriteLine(ptr[start]);
+        //            start++;
+        //        }
+        //    }
+        //}
 
-        static unsafe void BubbleSort(int[] array, int start, int end)
-        {
-            fixed (int* ptr = array)
-            {
-                int* temp = (int*)ptr;
-                while (start < end)
-                {
-                    for (int i = 0; i < array.Length; i++)
-                    {
-                        if (*(ptr + i) > *(ptr))
-                        {
+        //static unsafe void BubbleSort(int[] array, int start, int end)
+        //{
+        //    fixed (int* ptr = array)
+        //    {
+        //        int* temp = (int*)ptr;
+        //        while (start < end)
+        //        {
+        //            for (int i = 0; i < array.Length; i++)
+        //            {
+        //                if (*(ptr + i) > *(ptr))
+        //                {
 
-                        }
-                    }
-                    start++;
-                }
-            }
-        }
+        //                }
+        //            }
+        //            start++;
+        //        }
+        //    }
+        //}
 
         static int SubtractionWithAddition(int a, int b)
         {
@@ -163,12 +164,12 @@ namespace BinaryConversion
             return num;
         }
 
-        public static void Print(LinkedListNode node)
+        public static void Print(LinkedList<int> node)
         {
             while (node != null)
             {
-                Console.WriteLine($"{node.Value}");
-                if (node.Next != null)
+                Console.WriteLine($"{node.First}");
+                if (node.F != null)
                 {
                     Console.Write("->");
                 }
@@ -177,9 +178,10 @@ namespace BinaryConversion
             Console.WriteLine();
         }
 
-        public static LinkedListNode Add(LinkedListNode head1, LinkedListNode head2)
+        public static LinkedList<int> Add(LinkedList<int> head1, LinkedList<int> head2)
         {
-            LinkedListNode combined = new LinkedListNode(0, null);
+            int[] num = new int[4];
+            LinkedList<int> combined = new LinkedList<int>();
 
 
 
@@ -189,8 +191,8 @@ namespace BinaryConversion
 
         static void Main()
         {
-            LinkedListNode head1 = new LinkedListNode(1, );
-            LinkedListNode head2 = new LinkedListNode();
+            LinkedList<int> head1 = new LinkedList<int>(new int[] { 1, 0, 1});
+            LinkedList<int> head2 = new LinkedList<int>(new int[] { 1, 1, 1 });
 
             Print(head1);
             Print(head2);
